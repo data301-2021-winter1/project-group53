@@ -1,35 +1,29 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=5947812&assignment_repo_type=AssignmentRepo)
-# Group YYY - {Short snappy Title of your project}
 
-- Your title can change over time.
+# Group 53 - US Car Accidents by Altitude
 
 ## Milestones
 
-Details for Milestone are available on Canvas (left sidebar, Course Project) or [here](https://firas.moosvi.com/courses/data301/project/milestone01.html).
+- Milestone 1: Form team and find dataset > DONE
+- Milestone 2: Create repository and Load Dataset
+- Milestone 3: Data Analysis
+- Milestone 4: Present your Dashboard
+- Milestone 5: Address Feedback and Refine project
 
 ## Describe your topic/interest in about 150-200 words
 
-{Add your stuff here}
+The primary interest is in how the altitude affects the frequency of car crashes.
 
 ## Describe your dataset in about 150-200 words
 
-{Add your stuff here}
+This is a countrywide car accident dataset, which covers 49 states of the USA. The accident data are collected from February 2016 to Dec 2020, using multiple APIs that provide streaming traffic incident (or event) data. These APIs broadcast traffic data captured by a variety of entities, such as the US and state departments of transportation, law enforcement agencies, traffic cameras, and traffic sensors within the road-networks. Currently, there are about 1.5 million accident records in this dataset. Check here to learn more about this dataset.
+
+Description from datasource, check references.
 
 ## Team Members
 
-- Person 1: one sentence about you!
-- Person 2: one sentence about you!
-- Person 3: one sentence about you!
-
-## Images
-
-{You can use this area for any images you want to include}
-
-<img src ="images/test.png" width="100px">
+- Mohamed Abdelaaty: Aspiring software engineer in my last semester of Electrical Engineering school!
 
 ## References
 
-{Add your stuff here}
-
-
-
+Data source: https://www.kaggle.com/sobhanmoosavi/us-accidents
