@@ -32,4 +32,4 @@ Data source: <https://www.kaggle.com/sobhanmoosavi/us-accidents>
 
 ## Dashboard
 
-Please refer to [Dashboard](../dashboard/README.md) for more information regarding the tableau dashboard.
+Please refer to [Dashboard](https://github.com/data301-2021-winter1/project-group53/blob/main/dashboard/README.md) for more information regarding the tableau dashboard.
