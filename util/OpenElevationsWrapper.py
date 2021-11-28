@@ -23,12 +23,3 @@ class OpenElevationsApi:
         
     def post(self):
         return requests.post(self.URI, json=self.constructBody())
-
-
-oe = OpenElevationsApi()
-
-oe.withMultipleLoc([{"latitude": 41.161758, "longitude": -8.583933}, {"latitude": 41.161758, "longitude": -8.583933}])
-
-res = oe.post()
-
-print(res.json())
