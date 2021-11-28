@@ -28,4 +28,8 @@ Description from datasource, check references.
 
 ## References
 
-Data source: https://www.kaggle.com/sobhanmoosavi/us-accidents
+Data source: <https://www.kaggle.com/sobhanmoosavi/us-accidents>
+
+## Dashboard
+
+Please refer to [Dashboard](../dashboard/README.md) for more information regarding the tableau dashboard.
