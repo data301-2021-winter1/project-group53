@@ -12,7 +12,9 @@
 
 ## Describe your topic/interest in about 150-200 words
 
-The primary interest is in how the altitude affects the frequency of car crashes.
+The primary interest is in the effect of elevation on the frequency and severity of car accidents.
+
+The secondary interest is in the effect of time and weather conditions on the frequency and severity of car accidents.
 
 ## Describe your dataset in about 150-200 words
 
