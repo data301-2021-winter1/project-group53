@@ -1,49 +1,71 @@
 import pandas as pd
+import numpy as np
 
 class DataPipeline():
-    __DATASET_PATH: str
-    __OUTPUT_PATH: str
-    __DATAFRAME: pd.DataFrame
-
-    def __init__(self, dataset_path: str, output_path: str):
-        self.__DATASET_PATH = dataset_path
-        self.__OUTPUT_PATH = output_path
-        self.__DATAFRAME = self.__read_dataset()
+    def __init__(self, elevations_data_set_path,  accidents_dataset_path: str, output_path: str):
+        self._accidents_dataset_path = accidents_dataset_path
+        self._elevations_data_set_path = elevations_data_set_path
+        self._output_path = output_path
+        self._df = self.__read_and_process_dataset()
     
+    @property
+    def df(self) -> pd.DataFrame:
+        return self._df
+
+
     def get_dataset_path(self) -> str:
-        return self.__DATASET_PATH
+        return self._accidents_dataset_path
+
 
     def get_output_path(self) -> str:
-        return self.__OUTPUT_PATH
-    
-    def get_dataset_path_and_output_path(self) -> tuple:
-        return self.__DATASET_PATH, self.__OUTPUT_PATH
-    
-    def dataset_stats(self) -> tuple:
-        """
-        Returns:
-            tuple: (info, describe, head, tail, columns, dtypes, missing, count by weather condition, correlation)
-        """
-        return self.__DATAFRAME.info(), self.__DATAFRAME.describe(), self.__DATAFRAME.head(), self.__DATAFRAME.tail(), self.__DATAFRAME.columns, self.__DATAFRAME.dtypes, self.__DATAFRAME.isnull().sum(), self.__DATAFRAME.groupby('Weather_Condition').count(), self.__DATAFRAME.corr()
-    
-    def __read_dataset(self) -> pd.DataFrame:
-        return pd.read_csv(self.__DATASET_PATH)
+        return self._output_path
 
-    def __clean_dataset(self):
+
+    def get_dataset_path_and_output_path(self) -> tuple:
+        return self.get_dataset_path(), self.get_output_path()
+
+
+    ## Method Chaining and data wrangling
+    def __read_and_process_dataset(self) -> pd.DataFrame:
         """
-        Clean dataset.
+        Data Wrangling.
 
         Executes
         --------
-        1. Remove rows with missing values
-        2. Remove duplicates
-        3. Remove unnecessary columns
+        1. Reads Elevations Dataset
+        2. Renames Latitude, Longitude to Start_Lat, Start_Long
+        3. Drops Error Column
+        4. Reads Accidents Dataset
+        5. Drops NA
+        6. Drops Duplicates
+        7. Drops immecessary columns
+        8. Merges datasets together on Start_Lat, Start_Long
+        9. Drops NA
+        10. Drops Duplicates
         """
-        self.__DATAFRAME.dropna(inplace=True)
-        self.__DATAFRAME.drop_duplicates(inplace=True)
-        self.__DATAFRAME.drop([
-            'Distance(mi)', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 'Timezone', 'Airport_Code', 'Bump', 'Crossing', 'Give_Way', 'Junction', 'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop'
-        ], axis=1, inplace=true)
+
+        df_elevations = (
+            pd.read_csv(self._elevations_data_set_path)
+            .rename(columns={'Latitude': 'Start_Lat', 'Longitude': 'Start_Lng'})
+            .drop(columns= ['Error'])
+        )
+
+        df = (
+            pd.read_csv(self._accidents_dataset_path)
+            .dropna()
+            .drop_duplicates()
+            .drop(columns=[
+                    'Distance(mi)', 'Number', 'Street', 'Side', 'City', 'County', 'State', 'Zipcode', 'Country', 'Timezone', 'Airport_Code', 'Bump', 'Crossing', 'Give_Way', 'Junction', 'No_Exit', 'Railway', 'Roundabout', 'Station', 'Stop', 'Traffic_Calming', 'Traffic_Signal', 'Turning_Loop'
+                ])
+            .merge(df_elevations, how="left", on=['Start_Lat', 'Start_Lng'])
+            .replace([np.inf, -np.inf], np.nan)
+            .dropna()
+            .drop_duplicates()
+
+        )
+
+        return df
+
 
     def write_dataset(self, output_path: str = None) -> None:
         """
@@ -54,6 +76,6 @@ class DataPipeline():
 
         """
         if output_path is None:
-            self.__DATAFRAME.to_csv(self.__OUTPUT_PATH, index=False)
+            self._df.to_csv(self.__OUTPUT_PATH, index=False)
         else:
-            self.__DATAFRAME.to_csv(output_path, index=False)
+            self._df.to_csv(output_path, index=False)
